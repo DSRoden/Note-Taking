@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('Note-Taking')
-    .factory('User', ['$rootScope', '$http', function($rootScope, $http){
+    .factory('User', ['$http', function($http){
 
       function register(user){
         return $http.post('/register', user);
