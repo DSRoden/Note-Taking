@@ -12,11 +12,5 @@
 
     }])
     .run(['$rootScope', '$http', function($rootScope, $http){
-
-      $http.get('/status').then(function(response){
-        $rootScope.rootuser = response.data;
-      }, function(){
-        $rootScope.rootuser = null;
-      });
     }]);
 })();
