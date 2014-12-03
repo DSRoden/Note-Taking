@@ -13,9 +13,7 @@ module.exports = {
       avatar: Joi.string().required()
     }
   },
-  auth: {
-    mode: 'try'
-  },
+  auth: false,
   handler: function(request, reply){
       User.register(request.payload, function(err, user){
         reply().code(err ? 400 : 200);

@@ -18,7 +18,8 @@ module.exports = {
   handler: function(request, reply){
     User.login(request.payload, function(user){
       if(user){
-        user.password = null;
+        console.log('user is back', user);
+        delete user.password;
         request.auth.session.set(user);
         reply(user);
       }else {

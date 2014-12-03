@@ -23,11 +23,29 @@ User.register = function(obj, cb){
                 console.log(err);
                 return cb(true);
             }
-            download(user.avatar, file, cb)
+            download(obj.avatar, file, cb);
         });
-    })
+    });
 };
 
+
+User.login = function(obj, cb){
+    console.log(obj);
+    pg.query('select * from users where username = $1 limit 1', [obj.username], function(err, results){
+        console.log('results', results);
+        if (err || !results.rowCount) {
+            return cb();
+        }
+        var user = results.rows[0],
+            isGood = bcrypt.compareSync(obj.password, user.password);
+
+        if (!isGood) {
+            return cb(true);
+        }
+        console.log(user);
+        cb(user);
+    });
+};
 
 //Private helper function for S3//
 
@@ -35,7 +53,7 @@ function makeUrl(url, cb){
 
     var ext  = path.extname(url);
 
-    crypto.randomBytes(48, function(ex, buf) {
+    crypto.randomBytes(48, function(ex, buf){
         var token = buf.toString('hex'),
             file = token + '.avatar' + ext,
             avatar = 'https://s3.amazonaws.com/' + process.env.AWS_BUCKET + '/' + file;
