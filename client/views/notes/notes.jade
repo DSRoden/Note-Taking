@@ -1,0 +1,16 @@
+.row
+    .small-12.columns
+        form
+            .row
+                .small-6.columns
+                    label(for='title') Title
+                    input#title(type='text', name='title', ng-model='note.title', autofocus)
+                .small-6.columns
+            .row
+                .small-6.columns
+                    label(for='content') Body
+                    textarea(name='body', ng-model='note.body')
+            .row
+                .small-6.columns
+                    button(ng-click='submit()') Submit
+                .small-6.columns
